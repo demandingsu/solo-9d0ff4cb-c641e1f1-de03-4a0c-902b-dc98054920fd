@@ -4,6 +4,9 @@
 流程：抓取报价站分页列表与套餐详情 -> 地区过滤 -> 资格校验
 （缺费率 / 超已公布档位不得参与）-> 峰谷逐档计费 + 月基本费 -> 年度汇总排序。
 任何列表或详情抓取失败都会记录失败地址，并把最低价结论标记为“待核实”。
+
+同一应用还提供 ``POST /api/v1/verify-labels``：核查供电商 15 分钟用电明细的峰谷
+标签是否错标（见 ``app/verification/`` 子包）。
 """
 from __future__ import annotations
 
@@ -22,10 +25,18 @@ from .schemas import (
 from .scraper import crawl_quote_site
 
 app = FastAPI(
-    title="连锁便利店电价套餐比较 API",
-    version="1.0.0",
-    description="按门店峰谷用电预测，比较本地报价站公开电价套餐的年度成本。",
+    title="连锁便利店电价套餐比较与用电标签核查 API",
+    version="1.1.0",
+    description=(
+        "按门店峰谷用电预测比较本地报价站公开电价套餐的年度成本；"
+        "核查供电商 15 分钟用电明细的峰谷标签是否错标。"
+    ),
 )
+
+# 在同一 FastAPI 应用上注册峰谷标签核查路由。
+from .verification.router import register as register_label_verification  # noqa: E402
+
+register_label_verification(app)
 
 
 def _tier_out(charges) -> list[TierChargeOut]:

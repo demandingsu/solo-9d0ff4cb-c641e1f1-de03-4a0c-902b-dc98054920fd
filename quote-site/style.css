@@ -16,3 +16,9 @@ table.rate-table td:first-child, table.rate-table th:first-child { text-align: l
 .meta-row { margin: 8px 0; }
 .note { background: #fff8e6; border: 1px solid #f0d9a0; padding: 10px 14px; border-radius: 6px; font-size: 13px; }
 .error-box { background: #fff; border: 1px solid #dcdfe6; border-radius: 8px; padding: 40px; text-align: center; }
+
+.usage-card, .plan-card { background: #fff; border: 1px solid #dcdfe6; border-radius: 8px; padding: 16px 20px; margin: 12px 0; }
+.usage-meta { color: #606266; font-size: 13px; }
+table.usage-table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0; font-size: 13px; }
+table.usage-table th, table.usage-table td { border: 1px solid #dcdfe6; padding: 4px 8px; text-align: left; }
+table.usage-table th { background: #f5f7fa; }
